@@ -5,7 +5,7 @@ import (
 	"yonje/baseframework/controllers"
 )
 
-func sampleControllerFactory() controllers.Controller {
+func sampleControllerFactory() controllers.IController {
 	return &controllers.SampleController{}
 }
 

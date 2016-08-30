@@ -1,9 +1,5 @@
 package config
 
-import "github.com/gocraft/dbr"
-
-var DbConnection *dbr.Connection = nil
-
 type Database struct {
 	Driver   string
 	Addr     string
@@ -14,10 +10,10 @@ type Database struct {
 
 func GetDatabaseConfig() Database {
 	return Database{
-		Driver: "mysql",
-		Addr: "127.0.0.1:5432",
-		DbName:"base_framework",
-		UserName:"root",
-		Password:"12345",
+		Driver:   "mysql",
+		Addr:     "127.0.0.1:3306",
+		DbName:   "base_framework",
+		UserName: "root",
+		Password: "12345",
 	}
 }

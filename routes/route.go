@@ -12,4 +12,5 @@ func getControllerProvider(ctx *iris.Context) *controllers.ControllerProvider {
 
 func RegisterRoutes(app *iris.Framework) {
 	registerSampleRoutes(app)
+	registerAuthRoutes(app)
 }

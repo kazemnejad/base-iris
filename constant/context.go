@@ -1,5 +1,6 @@
 package constant
 
-const DbSession string = "dbsession"
-
-const ControlProv string = "conprov"
+const (
+	DbSession   = "dbsession"
+	ControlProv = "conprov"
+)

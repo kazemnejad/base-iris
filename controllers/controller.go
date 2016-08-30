@@ -1,18 +1,18 @@
 package controllers
 
-type Controller interface {
+type IController interface {
 	Init()
 	DeInit()
 }
 
-type ControllerFactory func() Controller
+type ControllerFactory func() IController
 
 type ControllerProvider struct {
-	cache map[string]Controller
+	cache map[string]IController
 }
 
-func (self *ControllerProvider) Provide(name string, factory ControllerFactory) Controller {
-	var controller Controller
+func (self *ControllerProvider) Provide(name string, factory ControllerFactory) IController {
+	var controller IController
 	if val, ok := self.cache[name]; ok {
 		controller = val
 	} else {
@@ -27,6 +27,6 @@ func (self *ControllerProvider) Provide(name string, factory ControllerFactory) 
 
 func NewControllerProvider() *ControllerProvider {
 	return &ControllerProvider{
-		cache: make(map[string]Controller),
+		cache: make(map[string]IController),
 	}
 }

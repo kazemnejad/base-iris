@@ -14,14 +14,14 @@ func AddControllerProvider(ctx *iris.Context) {
 }
 
 func AddDatabaseSession(ctx *iris.Context) {
-	if db.Connection == nil {
+	if db.Session() == nil {
 		ctx.JSON(500, struct {
 			Message string `json:"message"`
 		}{"no open database connection"})
 		return
 	}
 
-	ctx.Set(CONST.DbSession, db.Connection.NewSession(nil))
+	ctx.Set(CONST.DbSession, db.Session())
 	ctx.Next()
 }
 
@@ -30,7 +30,7 @@ func RegisterGlobalMiddlewares(app *iris.Framework) {
 	app.Use(logger.New(app.Logger))
 
 	// add dbr session object per request
-	app.UseFunc(AddDatabaseSession)
+	//app.UseFunc(AddDatabaseSession)
 
 	// add controllers cache to each request
 	app.UseFunc(AddControllerProvider)

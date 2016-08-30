@@ -4,13 +4,12 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gocraft/dbr"
 	"yonje/baseframework/config"
-	"fmt"
 )
 
-var Connection *dbr.Connection = nil
+var session *dbr.Session = nil
 
 func OpenGlobalConnection() (err error) {
-	if Connection != nil {
+	if session != nil {
 		err = nil
 		return
 	}
@@ -20,9 +19,17 @@ func OpenGlobalConnection() (err error) {
 		"@tcp(" + dbConf.Addr + ")/" +
 		dbConf.DbName
 
-	fmt.Println(dsn)
-
-	Connection, err = dbr.Open(dbConf.Driver, dsn, nil)
+	var conn *dbr.Connection
+	conn, err = dbr.Open(dbConf.Driver, dsn, nil)
+	session = conn.NewSession(nil)
 
 	return
+}
+
+func Session() *dbr.Session {
+	if session == nil {
+		OpenGlobalConnection()
+	}
+
+	return session
 }

@@ -16,7 +16,9 @@ func main() {
 	}
 
 	app := makeApp()
-	app.ListenTo(config.GetServerConfig())
+	err := app.ListenTo(config.GetServerConfig())
+
+	fmt.Println(err)
 
 	deInitialize()
 }
@@ -32,8 +34,8 @@ func initialize() bool {
 func deInitialize() {
 	fmt.Println("Deinitializing...")
 
-	if db.Connection != nil {
-		db.Connection.Close()
+	if db.Session() != nil {
+		db.Session().Close()
 	}
 }
 
