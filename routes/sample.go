@@ -14,7 +14,11 @@ func getSampleController(ctx *iris.Context) *controllers.SampleController {
 }
 
 func registerSampleRoutes(app *iris.Framework) {
-	app.Get("/sample/:fullname", func(ctx *iris.Context) {
-		getSampleController(ctx).Index(ctx, ctx.Param("fullname"))
+	app.Get("/sample/index/:fullname", func(ctx *iris.Context) {
+		getSampleController(ctx).Index(request(ctx), ctx.Param("fullname"))
+	})
+
+	app.Get("/sample/protected", auth, func(ctx *iris.Context) {
+		getSampleController(ctx).Protected(request(ctx))
 	})
 }

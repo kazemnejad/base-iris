@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
+	"strconv"
 	"yonje/baseframework/config"
 )
 
@@ -15,7 +16,7 @@ type User struct {
 
 func (self *User) GenerateJwtToken() string {
 	tokenStr, _ := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"userId": self.Id,
+		"userId": strconv.FormatInt(self.Id, 10),
 	}).SignedString(config.SigningSecret)
 
 	return tokenStr

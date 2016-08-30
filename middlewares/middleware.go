@@ -3,13 +3,13 @@ package middlewares
 import (
 	"github.com/iris-contrib/middleware/logger"
 	"github.com/kataras/iris"
-	CONST "yonje/baseframework/constant"
 	"yonje/baseframework/controllers"
 	"yonje/baseframework/db"
+	"yonje/baseframework/shared"
 )
 
 func AddControllerProvider(ctx *iris.Context) {
-	ctx.Set(CONST.ControlProv, controllers.NewControllerProvider())
+	ctx.Set(shared.ControlProv, controllers.NewControllerProvider())
 	ctx.Next()
 }
 
@@ -21,7 +21,7 @@ func AddDatabaseSession(ctx *iris.Context) {
 		return
 	}
 
-	ctx.Set(CONST.DbSession, db.Session())
+	ctx.Set(shared.DbSession, db.Session())
 	ctx.Next()
 }
 

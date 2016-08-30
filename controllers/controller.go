@@ -1,5 +1,7 @@
 package controllers
 
+import "yonje/baseframework/middlewares/authmiddleware"
+
 type IController interface {
 	Init()
 	DeInit()
@@ -29,4 +31,8 @@ func NewControllerProvider() *ControllerProvider {
 	return &ControllerProvider{
 		cache: make(map[string]IController),
 	}
+}
+
+func auth() *authmiddleware.Middleware {
+	return authmiddleware.Get()
 }
