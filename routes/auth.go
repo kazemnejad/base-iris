@@ -16,10 +16,10 @@ func getAuthController(ctx *iris.Context) *controllers.AuthController {
 
 func registerAuthRoutes(app *iris.Framework) {
 	app.Post("/auth/register", func(ctx *iris.Context) {
-		getAuthController(ctx).Register(helpers.NewRequestWrapper(ctx))
+		getAuthController(ctx).Register(request(ctx))
 	})
 
 	app.Post("/auth/login", func(ctx *iris.Context) {
-		getAuthController(ctx).Login(helpers.NewRequestWrapper(ctx))
+		getAuthController(ctx).Login(request(ctx))
 	})
 }
