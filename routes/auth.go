@@ -3,7 +3,6 @@ package routes
 import (
 	"github.com/kataras/iris"
 	"yonje/baseframework/controllers"
-	"yonje/baseframework/helpers"
 )
 
 func authControllerFactory() controllers.IController {

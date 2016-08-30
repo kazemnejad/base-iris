@@ -27,6 +27,6 @@ func GeneratePasswordHash(password string) string {
 	return string(hashed[:])
 }
 
-func CheckHashWithPassWord(hashed string, password string) bool {
+func CheckHashWithPassword(hashed string, password string) bool {
 	return bcrypt.CompareHashAndPassword([]byte(hashed), []byte(password)) == nil
 }

@@ -24,7 +24,6 @@ func (self *Middleware) Serve(ctx *iris.Context) {
 	err := self.CheckJWT(ctx)
 
 	if err != nil {
-		ctx.Log(err)
 		ctx.JSON(403, responses.NewError(code.PermissionDenied))
 		return
 	}

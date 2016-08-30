@@ -24,7 +24,7 @@ func (self *AuthController) Register(request *helpers.RequestWrapper) {
 	ctx := request.Context
 
 	if errs, ok := self.Validate(request, self.getValidationRules()); !ok {
-		ctx.JSON(402, responses.NewValidationError(errs))
+		ctx.JSON(400, responses.NewValidationError(errs))
 		return
 	}
 
@@ -36,7 +36,7 @@ func (self *AuthController) Register(request *helpers.RequestWrapper) {
 
 	result, err := db.Session().InsertInto(tables.User).Columns("email", "password", "name").Record(user).Exec()
 	if err != nil {
-		ctx.JSON(402, responses.NewValidationError(valid.Errors{
+		ctx.JSON(400, responses.NewValidationError(valid.Errors{
 			"email": valid.DefaultErrors["unique"],
 		}))
 		return
@@ -55,7 +55,7 @@ func (self *AuthController) Login(request *helpers.RequestWrapper) {
 		"password": "required",
 	}
 	if errs, ok := self.Validate(request, rules); !ok {
-		ctx.JSON(402, responses.NewValidationError(errs))
+		ctx.JSON(400, responses.NewValidationError(errs))
 		return
 	}
 
@@ -65,7 +65,7 @@ func (self *AuthController) Login(request *helpers.RequestWrapper) {
 		Where("email = ?", request.PostValue("email")).
 		LoadStruct(&user)
 
-	if user.Password != "" && models.CheckHashWithPassWord(user.Password, request.PostValue("password")) {
+	if user.Password != "" && models.CheckHashWithPassword(user.Password, request.PostValue("password")) {
 		ctx.JSON(200, responses.NewAuth(user.Id, user.GenerateJwtToken()))
 		return
 	}
